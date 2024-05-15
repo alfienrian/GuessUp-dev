@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title1"
+        android:gravity="end"
+        android:textSize="32sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title2"
+        android:gravity="end"
+        android:textSize="32sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/play_option2"
+        android:gravity="center"
+        android:textSize="26sp"
+        android:background="@color/purple_200"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/question_type1"
+        android:gravity="center"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="32dp"
+        android:textSize="32sp"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cat"
+        android:contentDescription="Cat"
+        />
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:text="@string/quiz_btn_check"
+        android:background="@color/purple_200"
+        />
+</LinearLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Guess Up</string>
+    <string name="title1">GUESS</string>
+    <string name="title2">UP</string>
+    <string name="menu_question">Bisakah kalian menebakku?</string>
+    <string name="btn_play">Mainkan</string>
+    <string name="play_option1">Buah</string>
+    <string name="play_option2">Binatang</string>
+    <string name="question_type1">Apakah aku?</string>
+    <string name="question_type2">Siapakah aku?</string>
+    <string name="quiz_incorrect">Yahh jawaban kamu kurang tepat</string>
+    <string name="quiz_correct">Jawaban benar</string>
+    <string name="quiz_btn_next">Berikutnya</string>
+    <string name="quiz_btn_check">Cek</string>
+    <string name="quiz_btn_back">Kembali</string>
+    <string name="quiz_result_good">Selamat! Poinmu</string>
+    <string name="quiz_result_bad">Yah masih kurang nih, Poin kamu</string>
+</resources>
