@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,6 +14,8 @@ import com.ti2a.kel3.guessup.data.QuizRepository
 import com.ti2a.kel3.guessup.ui.screens.MainScreen
 import com.ti2a.kel3.guessup.ui.screens.QuizCategoryScreen
 import com.ti2a.kel3.guessup.ui.screens.QuizScreen
+import com.ti2a.kel3.guessup.ui.theme.GuessUpTheme
+import com.ti2a.kel3.guessup.ui.theme.Purple80
 
 @Composable
 fun Navigation() {
@@ -20,7 +23,11 @@ fun Navigation() {
 
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
-            MainScreen {
+            MainScreen(modifier = Modifier
+                .fillMaxWidth()
+                .background(Purple80)
+                .fillMaxSize()
+            ) {
                 navController.navigate("category")
             }
         }
@@ -28,7 +35,7 @@ fun Navigation() {
             QuizCategoryScreen(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color(R.color.purple_700))
+                    .background(Purple80)
             ) { category ->
                 when (category) {
                     "animal" -> navController.navigate("quiz/animal")
@@ -39,16 +46,30 @@ fun Navigation() {
         composable("quiz/animal") {
             QuizScreen(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(R.color.purple_700)),
+                    .fillMaxSize()
+                    .background(Purple80),
                 quizList = QuizRepository.animalQuizList)
         }
         composable("quiz/fruit") {
             QuizScreen(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(R.color.purple_700)),
+                    .fillMaxSize()
+                    .background(Purple80),
                 quizList = QuizRepository.fruitQuizList)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun MainScreenPreview() {
+    GuessUpTheme {
+        MainScreen(modifier = Modifier
+            .fillMaxWidth()
+            .background(Purple80)
+            .fillMaxSize()
+        ) {
+            "aa"
         }
     }
 }
