@@ -13,7 +13,7 @@ object QuizRepository {
         // TODO: Mengganti semua data gambar
         QuizItem(R.drawable.cat, "badak"),
         QuizItem(R.drawable.cat, "burung"),
-        QuizItem(R.drawable.cat, "harimau"),
+//        QuizItem(R.drawable.cat, "harimau"),
         QuizItem(R.drawable.cat, "sapi"),
         QuizItem(R.drawable.cat, "anjing"),
         QuizItem(R.drawable.cat, "kambing"),
