@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,11 +35,14 @@ fun QuizScreen(
     category: String,
     navigateScreen: (String) -> Unit,
 ) {
-    var progress by remember { mutableIntStateOf(1) }
     var isCorrect by remember { mutableStateOf(false) }
     var currentQuestionIndex by remember { mutableIntStateOf(0) }
-    var answer by remember { mutableStateOf("") }
     var quizMessage by remember { mutableStateOf("Apakah aku?") }
+    var imageState by remember { mutableStateOf(quizList[currentQuestionIndex].image) }
+
+    var answerLength = quizList[currentQuestionIndex].answer.length
+    val answer = remember { List(12) { mutableStateOf(TextFieldValue("")) } }
+
 
     Column(
         modifier = modifier
@@ -51,7 +55,7 @@ fun QuizScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "$progress/${quizList.size}")
+            Text(text = "${currentQuestionIndex + 1}/${quizList.size}", color = Color.White)
             Spacer(modifier = Modifier.size(12.dp))
             Text(
                 text = category,
@@ -68,14 +72,17 @@ fun QuizScreen(
             )
             Spacer(modifier = Modifier.size(60.dp))
             Image(
-                painter = painterResource(id = quizList[currentQuestionIndex].image),
-                contentDescription = null
+                painter = painterResource(id = imageState),
+                contentDescription = null,
+                modifier = Modifier.size(42.dp)
             )
-            QuizTextField(count = quizList.size, text = answer)
+            QuizTextField(count = answerLength, answerState = answer)
+            Text(text =  answer.joinToString(separator = "") { it.value.text })
 
             if (!isCorrect) {
                 GButton(text = "Cek") {
-                    isCorrect = answer == quizList[currentQuestionIndex].answer
+                    val answersString = answer.joinToString(separator = "") { it.value.text }
+                    isCorrect = answersString == quizList[currentQuestionIndex].answer
                     quizMessage = when (isCorrect) {
                         true -> "JAWABAN BENAR"
                         false -> "Yahh Jawaban Kamu Kurang Tepat"
@@ -83,12 +90,15 @@ fun QuizScreen(
                 }
             } else {
                 GButton(text = "Selanjutnya") {
-                    if (progress == quizList.size) {
-                        navigateScreen("result")
+                    if (currentQuestionIndex + 1 == quizList.size) {
+                        navigateScreen("result/100")
                     }
-                    currentQuestionIndex++
-                    progress++
-                    isCorrect = false
+                    else {
+                        currentQuestionIndex += 1
+                        answer.forEach { it.value = TextFieldValue("") }
+                        isCorrect = false
+                        quizMessage = "Apakah aku?"
+                    }
                 }
             }
         }
