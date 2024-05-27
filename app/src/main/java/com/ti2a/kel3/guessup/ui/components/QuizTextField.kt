@@ -36,13 +36,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ti2a.kel3.guessup.ui.theme.GuessUpTheme
+import com.ti2a.kel3.guessup.ui.theme.Pink40
+import com.ti2a.kel3.guessup.ui.theme.Purple40
 import com.ti2a.kel3.guessup.ui.theme.Purple80
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun QuizTextField(count: Int, answerState: List<MutableState<TextFieldValue>>) {
+fun QuizTextField(count: Int, onAnswerChanged: (String) -> Unit) {
     val focusRequesters = remember { List(count) { FocusRequester() } }
     val focusManager = LocalFocusManager.current
+
+    val answerState = remember { List(count) { mutableStateOf("") } }
 
     Row(
         modifier = Modifier
@@ -52,38 +56,27 @@ fun QuizTextField(count: Int, answerState: List<MutableState<TextFieldValue>>) {
         repeat(count) { i ->
             BasicTextField(
                 value = answerState[i].value,
-                onValueChange = {
-                    if (it.text.length <= 1) {
-                        answerState[i].value = it
+                onValueChange = { it ->
+                    if (it.length <= 1) {
+                        answerState[i].value = it.uppercase()
+                        val newAnswer = answerState.joinToString(separator = "") { it.value }
+                        onAnswerChanged(newAnswer)
 //                        if (it.text.isNotEmpty()) {
 //                            if (i < count - 1) focusRequesters[i + 1].requestFocus()
 //                            else focusManager.clearFocus()
 //                        }
                     }
                 },
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .background(Color.Gray)
-                            .padding(8.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        if (answerState[i].value.text.isEmpty()) {
-                            Text(
-                                text = "",
-                                color = Color.LightGray,
-                                fontSize = 32.sp,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                        innerTextField()
-                    }
-                },
+                textStyle = TextStyle(
+                    textAlign = TextAlign.Center,
+                    color = Color.Black,
+                    fontSize = 32.sp
+                ),
                 modifier = Modifier
                     .padding(4.dp)
                     .weight(1f)
-                    .size(48.dp)
+                    .size(42.dp)
+                    .background(Pink40)
                     .focusRequester(focusRequesters[i]),
             )
         }
@@ -99,6 +92,8 @@ fun QuizTextField(count: Int, answerState: List<MutableState<TextFieldValue>>) {
 fun QuizTextFieldPreview() {
     val quizState = remember { List(7) { mutableStateOf(TextFieldValue("")) } }
     GuessUpTheme {
-        QuizTextField(count = 7, quizState)
+        QuizTextField(count = 7) {
+            ""
+        }
     }
 }

@@ -41,7 +41,7 @@ fun QuizScreen(
     var imageState by remember { mutableStateOf(quizList[currentQuestionIndex].image) }
 
     var answerLength = quizList[currentQuestionIndex].answer.length
-    val answer = remember { List(12) { mutableStateOf(TextFieldValue("")) } }
+    var answer by remember { mutableStateOf("") }
 
 
     Column(
@@ -74,15 +74,14 @@ fun QuizScreen(
             Image(
                 painter = painterResource(id = imageState),
                 contentDescription = null,
-                modifier = Modifier.size(42.dp)
+                modifier = Modifier.size(96.dp)
             )
-            QuizTextField(count = answerLength, answerState = answer)
-            Text(text =  answer.joinToString(separator = "") { it.value.text })
+            QuizTextField(count = answerLength) { answer = it}
+            Text(text =  answer, color = Color.White)
 
             if (!isCorrect) {
                 GButton(text = "Cek") {
-                    val answersString = answer.joinToString(separator = "") { it.value.text }
-                    isCorrect = answersString == quizList[currentQuestionIndex].answer
+                    isCorrect = answer.lowercase() == quizList[currentQuestionIndex].answer
                     quizMessage = when (isCorrect) {
                         true -> "JAWABAN BENAR"
                         false -> "Yahh Jawaban Kamu Kurang Tepat"
@@ -95,7 +94,7 @@ fun QuizScreen(
                     }
                     else {
                         currentQuestionIndex += 1
-                        answer.forEach { it.value = TextFieldValue("") }
+                        answer = ""
                         isCorrect = false
                         quizMessage = "Apakah aku?"
                     }

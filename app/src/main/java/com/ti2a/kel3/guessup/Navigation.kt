@@ -44,7 +44,12 @@ fun Navigation() {
         }
         composable("result/{score}") {
             val score = it.arguments?.getString("score")
-            ResultScreen(result = score) { route ->
+            ResultScreen(
+                result = score,
+                modifier = Modifier
+                    .background(Purple80)
+                    .fillMaxSize()
+                ) { route ->
                 navController.navigate(route)
             }
         }

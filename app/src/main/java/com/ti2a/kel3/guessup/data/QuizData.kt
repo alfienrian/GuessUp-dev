@@ -10,13 +10,13 @@ data class QuizItem(
 object QuizRepository {
     val animalQuizList = listOf(
         QuizItem(R.drawable.cat, "kucing"),
+        QuizItem(R.drawable.belalang, "belalang"),
         // TODO: Mengganti semua data gambar
-        QuizItem(R.drawable.cat, "badak"),
-        QuizItem(R.drawable.cat, "burung"),
+        QuizItem(R.drawable.badak, "badak"),
+        QuizItem(R.drawable.bebek, "bebek"),
 //        QuizItem(R.drawable.cat, "harimau"),
-        QuizItem(R.drawable.cat, "sapi"),
-        QuizItem(R.drawable.cat, "anjing"),
-        QuizItem(R.drawable.cat, "kambing"),
+        QuizItem(R.drawable.buaya, "buaya"),
+        QuizItem(R.drawable.gajah, "gajah"),
     )
 
     val fruitQuizList = listOf(
