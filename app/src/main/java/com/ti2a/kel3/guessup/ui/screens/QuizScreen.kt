@@ -38,7 +38,7 @@ fun QuizScreen(
     var isCorrect by remember { mutableStateOf(false) }
     var currentQuestionIndex by remember { mutableIntStateOf(0) }
     var quizMessage by remember { mutableStateOf("Apakah aku?") }
-    var imageState by remember { mutableStateOf(quizList[currentQuestionIndex].image) }
+    val imageState by remember(currentQuestionIndex) { mutableIntStateOf(quizList[currentQuestionIndex].image) }
 
     var answerLength = quizList[currentQuestionIndex].answer.length
     var answer by remember { mutableStateOf("") }
