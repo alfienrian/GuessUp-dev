@@ -44,7 +44,12 @@ fun Navigation() {
         }
         composable("result/{score}") {
             val score = it.arguments?.getString("score")
-            ResultScreen(result = score) { route ->
+            ResultScreen(
+                result = score,
+                modifier = Modifier
+                    .background(Purple80)
+                    .fillMaxSize()
+                ) { route ->
                 navController.navigate(route)
             }
         }
@@ -53,7 +58,7 @@ fun Navigation() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Purple80),
-                quizList = QuizRepository.animalQuizList,
+                quizList = QuizRepository.getRandomAnimals(),
                 category = "Binatang"
             ) { route ->
                 navController.navigate(route)
@@ -64,7 +69,7 @@ fun Navigation() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Purple80),
-                quizList = QuizRepository.fruitQuizList,
+                quizList = QuizRepository.getRandomFruits(),
                 category = "Buah"
             ) { route ->
                 navController.navigate(route)

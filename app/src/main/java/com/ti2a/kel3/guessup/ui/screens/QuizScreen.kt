@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,11 +37,11 @@ fun QuizScreen(
     var isCorrect by remember { mutableStateOf(false) }
     var currentQuestionIndex by remember { mutableIntStateOf(0) }
     var quizMessage by remember { mutableStateOf("Apakah aku?") }
-    var imageState by remember { mutableStateOf(quizList[currentQuestionIndex].image) }
-
-    var answerLength = quizList[currentQuestionIndex].answer.length
-    val answer = remember { List(12) { mutableStateOf(TextFieldValue("")) } }
-
+    val imageState by remember(currentQuestionIndex) { mutableIntStateOf(quizList[currentQuestionIndex].image) }
+    val currentAnswer by remember(currentQuestionIndex) { mutableStateOf(quizList[currentQuestionIndex].answer) }
+    var answer by remember { mutableStateOf("") }
+    var incorrectCounts by remember { mutableIntStateOf(0) }
+    var hasFailedAnswer by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -56,6 +55,7 @@ fun QuizScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "${currentQuestionIndex + 1}/${quizList.size}", color = Color.White)
+            Text(text = "Jawaban salah : $incorrectCounts", color = Color.White)
             Spacer(modifier = Modifier.size(12.dp))
             Text(
                 text = category,
@@ -70,33 +70,40 @@ fun QuizScreen(
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.size(60.dp))
+            Spacer(modifier = Modifier.size(20.dp))
             Image(
                 painter = painterResource(id = imageState),
                 contentDescription = null,
-                modifier = Modifier.size(42.dp)
+                alignment = Alignment.Center,
+                modifier = Modifier.size(220.dp)
             )
-            QuizTextField(count = answerLength, answerState = answer)
-            Text(text =  answer.joinToString(separator = "") { it.value.text })
+            QuizTextField(answer = currentAnswer) { answer = it }
+            Spacer(modifier = Modifier.size(20.dp))
 
             if (!isCorrect) {
                 GButton(text = "Cek") {
-                    val answersString = answer.joinToString(separator = "") { it.value.text }
-                    isCorrect = answersString == quizList[currentQuestionIndex].answer
+                    isCorrect = answer.lowercase() == currentAnswer.lowercase()
+
                     quizMessage = when (isCorrect) {
                         true -> "JAWABAN BENAR"
                         false -> "Yahh Jawaban Kamu Kurang Tepat"
+                    }
+
+                    if (!isCorrect && !hasFailedAnswer) {
+                        incorrectCounts++
+                        hasFailedAnswer = true
                     }
                 }
             } else {
                 GButton(text = "Selanjutnya") {
                     if (currentQuestionIndex + 1 == quizList.size) {
-                        navigateScreen("result/100")
-                    }
-                    else {
-                        currentQuestionIndex += 1
-                        answer.forEach { it.value = TextFieldValue("") }
+                        val totalScore: Int = (100 / quizList.size) * (quizList.size - incorrectCounts)
+                        navigateScreen("result/$totalScore")
+                    } else {
+                        currentQuestionIndex++
+                        answer = ""
                         isCorrect = false
+                        hasFailedAnswer = false
                         quizMessage = "Apakah aku?"
                     }
                 }

@@ -1,5 +1,6 @@
 package com.ti2a.kel3.guessup.ui.components
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,6 +23,7 @@ fun GButton(
         onClick = onClick,
         shape = roundedCorner,
         colors = ButtonDefaults.buttonColors(Pink40),
+        contentPadding = PaddingValues(horizontal = 28.dp, vertical=12.dp)
     ) {
         Text(
             text = text,
