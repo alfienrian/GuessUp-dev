@@ -34,6 +34,29 @@ object QuizRepository {
 
     val fruitQuizList = listOf(
         QuizItem(R.drawable.avocado, "alpukat"),
+        QuizItem(R.drawable.durian, "durian"),
+        QuizItem(R.drawable.jeruk, "jeruk"),
+        QuizItem(R.drawable.kiwi, "kiwi"),
+        QuizItem(R.drawable.lemon, "lemon"),
+        QuizItem(R.drawable.mangga, "mangga"),
+        QuizItem(R.drawable.manggis, "manggis"),
+        QuizItem(R.drawable.melon, "melon"),
+        QuizItem(R.drawable.naga, "naga"),
+        QuizItem(R.drawable.nanas, "nanas"),
+        QuizItem(R.drawable.pepaya,  "pepaya"),
+        QuizItem(R.drawable.pir, "pir"),
+        QuizItem(R.drawable.pisang, "pisang"),
+        QuizItem(R.drawable.strawberry, "strawberry"),
+        QuizItem(R.drawable.apel,"apel"),
+        QuizItem(R.drawable.anggur,"anggur"),
+        QuizItem(R.drawable.blueberry,"blueberry"),
+        QuizItem(R.drawable.cherry,"cherry"),
+        QuizItem(R.drawable.durian,"durian"),
+        QuizItem(R.drawable.tomat,"tomat"),
+        QuizItem(R.drawable.jagung,"jagung"),
+
+
+
         // Tambahkan soal tebakan buah lainnya
     )
 
